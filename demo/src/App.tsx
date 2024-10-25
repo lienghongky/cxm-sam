@@ -20,7 +20,7 @@ import npyjs from "npyjs";
 // Define image, embedding and model paths
 const IMAGE_PATH = "/assets/data/dogs.jpg";
 const IMAGE_EMBEDDING = "/assets/data/dogs_embedding.npy";
-const MODEL_DIR = "/model/sam_onnx_quantized_example.onnx";
+const MODEL_DIR = "/model/sam_onnx_example.onnx";
 
 const App = () => {
   const {
@@ -39,14 +39,16 @@ const App = () => {
   // pre-computed image embedding
   useEffect(() => {
     // Initialize the ONNX model
+    console.log("Initialize the ONNX model")
     const initModel = async () => {
       try {
         if (MODEL_DIR === undefined) return;
         const URL: string = MODEL_DIR;
         const model = await InferenceSession.create(URL);
         setModel(model);
+        console.log("init model done!")
       } catch (e) {
-        console.log(e);
+        console.log("Init model Error: ",e);
       }
     };
     initModel();
